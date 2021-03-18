@@ -23,6 +23,19 @@ fn single_number_00(nums: Vec<i32>) -> i32 {
     unreachable!()
 }
 
+fn single_number_01(nums: Vec<i32>) -> i32 {
+    let mut hashmap: HashMap<i32, i32> = HashMap::new();
+
+    for n in nums.iter() {
+        match hashmap.remove(&n) {
+            Some(_) => None,
+            None => hashmap.insert(*n, 1),
+        };
+    }
+
+    *hashmap.keys().next().unwrap()
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -37,5 +50,17 @@ mod test {
 
         let input = vec![1];
         assert_eq!(single_number_00(input), 1);
+    }
+
+    #[test]
+    fn single_number_01_test() {
+        let input = vec![2, 2, 1];
+        assert_eq!(single_number_01(input), 1);
+
+        let input = vec![4, 1, 2, 1, 2];
+        assert_eq!(single_number_01(input), 4);
+
+        let input = vec![1];
+        assert_eq!(single_number_01(input), 1);
     }
 }
