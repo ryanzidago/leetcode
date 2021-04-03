@@ -42,14 +42,14 @@ fn brute_force(nums: Vec<i32>) -> i32 {
 #[cfg(test)]
 mod test {
     use super::*;
-    //
-    // #[test]
-    // fn brute_force_test() {
-    //     assert_eq!(6, brute_force(vec![-2, 1, -3, 4, -1, 2, 1, -5, 4]));
-    //     assert_eq!(1, brute_force(vec![1]));
-    //     assert_eq!(23, brute_force(vec![5, 4, -1, 7, 8]));
-    //     assert_eq!(1, brute_force(vec![-2, 1]));
-    // }
+
+    #[test]
+    fn brute_force_test() {
+        assert_eq!(6, brute_force(vec![-2, 1, -3, 4, -1, 2, 1, -5, 4]));
+        assert_eq!(1, brute_force(vec![1]));
+        assert_eq!(23, brute_force(vec![5, 4, -1, 7, 8]));
+        assert_eq!(1, brute_force(vec![-2, 1]));
+    }
 
     #[test]
     fn kadane_test() {
@@ -57,5 +57,6 @@ mod test {
         assert_eq!(1, kadane(vec![1]));
         assert_eq!(23, kadane(vec![5, 4, -1, 7, 8]));
         assert_eq!(1, kadane(vec![-2, 1]));
+        assert_eq!(3, kadane(vec![1, 2, -5, 2]));
     }
 }
