@@ -7,24 +7,15 @@ fn main() {
 
 #[derive(Eq, Ord, PartialEq)]
 struct FrequentWord {
-    word: String,
     frequency: usize,
-}
-
-impl FrequentWord {
-    fn new(word: String, frequency: usize) -> FrequentWord {
-        FrequentWord { word, frequency }
-    }
+    word: String,
 }
 
 impl PartialOrd for FrequentWord {
     fn partial_cmp(&self, other: &FrequentWord) -> Option<Ordering> {
         Some(match self.frequency.cmp(&other.frequency) {
             Ordering::Equal => other.word.cmp(&self.word),
-            ordering => {
-                println!("ordering = {:#?}", ordering);
-                ordering
-            }
+            ordering => ordering,
         })
     }
 }
@@ -43,7 +34,10 @@ fn top_k_frequent(words: Vec<String>, k: i32) -> Vec<String> {
     }
 
     for (word, frequency) in map {
-        let frequent_word = FrequentWord::new(word, frequency);
+        let frequent_word = FrequentWord {
+            word: word,
+            frequency: frequency,
+        };
         heap.push(frequent_word);
     }
 
@@ -76,16 +70,37 @@ mod test {
             "is".to_string(),
         ];
         let k = 4;
-
         let expected = vec![
             "the".to_string(),
             "is".to_string(),
             "sunny".to_string(),
             "day".to_string(),
         ];
-
         let output = top_k_frequent(words, k);
-
         assert_eq!(expected, output);
+
+        let words = vec![
+            "i".to_string(),
+            "love".to_string(),
+            "leetcode".to_string(),
+            "i".to_string(),
+            "love".to_string(),
+            "coding".to_string(),
+        ];
+        let k = 2;
+        let expected = vec!["i".to_string(), "love".to_string()];
+        assert_eq!(expected, top_k_frequent(words, k));
+
+        let words = vec![
+            "i".to_string(),
+            "love".to_string(),
+            "leetcode".to_string(),
+            "i".to_string(),
+            "love".to_string(),
+            "coding".to_string(),
+        ];
+        let k = 1;
+        let expected = vec!["i".to_string()];
+        assert_eq!(expected, top_k_frequent(words, k));
     }
 }
