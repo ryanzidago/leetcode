@@ -11,10 +11,10 @@ pub fn reverse_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
     let mut previous_node: Option<Box<ListNode>> = None;
     let mut current_node: Option<Box<ListNode>> = head;
     while let Some(mut boxed_node) = current_node {
-        let next = boxed_node.next.take();
+        let next_node = boxed_node.next.take();
         boxed_node.next = previous_node;
         previous_node = Some(boxed_node);
-        current_node = next;
+        current_node = next_node;
     }
 
     previous_node
@@ -23,7 +23,6 @@ pub fn reverse_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
 pub fn reverse_list_rec(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
     let previous_node: Option<Box<ListNode>> = None;
     let current_node = head;
-
     _reverse_list_rec(previous_node, current_node)
 }
 
